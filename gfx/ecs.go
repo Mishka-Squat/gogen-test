@@ -20,6 +20,13 @@ type DrawEntity struct {
 	Draw *DrawComponent `gog:"new: drawCall"`
 }
 
+type DoubleDrawEntity struct {
+	_          ecs.MetaTag `ecs:"archetype: { transient }"`
+	DrawEntity `gog:"new"`
+
+	DrawAgain *DrawComponent `gog:"new: drawCall"`
+}
+
 type BoundComponent struct {
 	_ ecs.MetaTag `ecs:"component"`
 
