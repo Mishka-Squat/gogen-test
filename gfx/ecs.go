@@ -17,5 +17,26 @@ type DrawEntity struct {
 	_  ecs.MetaTag `ecs:"archetype: { transient }"`
 	Id ecs.Id
 
-	Component *DrawComponent `gog:"new: drawCall"`
+	Draw *DrawComponent `gog:"new: drawCall"`
+}
+
+type BoundComponent struct {
+	_ ecs.MetaTag `ecs:"component"`
+
+	Bound rect2.Float32
+}
+
+type BoundDrawEntity struct {
+	_          ecs.MetaTag `ecs:"archetype: { transient }"`
+	DrawEntity `gog:"new: drawCall"`
+
+	Bound BoundComponent `gog:"new: bound"`
+}
+
+// Here we removed base class new parameters and expect them to be imported automaticaly
+type BoundDrawEntitySimple struct {
+	_          ecs.MetaTag `ecs:"archetype: { transient }"`
+	DrawEntity `gog:"new"`
+
+	Bound BoundComponent `gog:"new: bound"`
 }
