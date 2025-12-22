@@ -19,6 +19,11 @@ type WorldEntity struct {
 	Model *WorldModelComponent
 }
 
+type PlayerEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	Id          ecs.Id
+}
+
 type ScreenLayoutComponent struct {
 	ecs.MetaTag        `ecs:"component: { transient }"`
 	ui.LayoutComponent `gog:"new"`
@@ -33,7 +38,8 @@ type ScreenViewComponent struct {
 type ScreenModelComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	worldMap ecs.Ref[WorldEntity] `ecs:"a, reference"` // reference components should not be created by default, but also not recreated as transient refs
+	world  ecs.Ref[WorldEntity]  `ecs:"a, reference" gog:"new: 'world'"` // reference components should not be created by default, but also not recreated as transient refs
+	Player ecs.Ref[PlayerEntity] `ecs:"a, reference"`
 }
 
 type ScreenEntity struct {
@@ -42,7 +48,7 @@ type ScreenEntity struct {
 
 	layout *ScreenLayoutComponent `gog:"new: '@'"`
 	View   *ScreenViewComponent   `gog:"new: { background: '@.DrawBackground' }"`
-	Model  *ScreenModelComponent
+	Model  *ScreenModelComponent  `gog:"new: 'world, player'"`
 }
 
 func (s ScreenEntity) DrawBackground() {
