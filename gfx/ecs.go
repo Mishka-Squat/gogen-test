@@ -15,7 +15,7 @@ type DrawComponent struct {
 
 type DrawEntity struct {
 	ecs.MetaTag `ecs:"archetype: { transient }"`
-	Id          ecs.Id
+	ecs.Archetype
 
 	Draw *DrawComponent `gog:"new: drawCall"`
 }

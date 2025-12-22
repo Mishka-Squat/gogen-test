@@ -11,7 +11,7 @@ type Component1_1_1 struct {
 
 type Archetype1_1_1 struct {
 	ecs.MetaTag `ecs:"archetype"`
-	Id          ecs.Id
+	ecs.Archetype
 
 	Component1 Component1_1_1
 }

@@ -15,14 +15,14 @@ type WorldModelComponent struct {
 
 type WorldEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
-	Id          ecs.Id
+	ecs.Archetype
 
 	Model *WorldModelComponent
 }
 
 type PlayerEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
-	Id          ecs.Id
+	ecs.Archetype
 }
 
 type CursorComponent struct {
@@ -33,7 +33,7 @@ type CursorComponent struct {
 
 type CursorEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
-	Id          ecs.Id
+	ecs.Archetype
 
 	Cursor *CursorComponent
 }
@@ -59,7 +59,7 @@ type ScreenModelComponent struct {
 
 type ScreenEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
-	Id          ecs.Id
+	ecs.Archetype
 
 	layout *ScreenLayoutComponent `gog:"new: '@'"`
 	View   *ScreenViewComponent   `gog:"new: { background: '@.DrawBackground' }"`
