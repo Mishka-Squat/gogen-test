@@ -28,14 +28,14 @@ type PlayerEntity struct {
 type CursorComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	xy vector2.Int `ecs:"a, dto"`
+	xy vector2.Int `ecs:"a, dto" gog:"new"`
 }
 
 type CursorEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
 	ecs.Archetype
 
-	Cursor *CursorComponent
+	Cursor *CursorComponent `gog:"new: xy"`
 }
 
 type ScreenLayoutComponent struct {
@@ -81,7 +81,7 @@ type ComplexScreenViewModelComponent struct {
 	background ecs.Ref[gfx.DrawEntity] `ecs:"a"`                      // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
 	world      ecs.Ref[WorldEntity]    `ecs:"a, reference" gog:"new"` // reference components should not be created by default, but also not recreated as transient refs
 	Player     ecs.Ref[PlayerEntity]   `ecs:"a, reference" gog:"new"`
-	Cursor     ecs.Ref[CursorEntity]   `ecs:"a, reference" gog:"new"`
+	Cursor     ecs.Ref[CursorEntity]   `ecs:"a" gog:"new"`
 }
 
 type ComplexScreenEntity struct {
