@@ -27,6 +27,15 @@ type DoubleDrawEntity struct {
 	DrawAgain *DrawComponent `gog:"new: drawCall"`
 }
 
+type AnimatedSprite struct {
+	ecs.MetaTag `ecs:"archetype"`
+	DrawEntity  `gog:"new: '@.Draw'"`
+}
+
+func (s AnimatedSprite) Draw() {
+
+}
+
 type BoundComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
