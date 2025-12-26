@@ -28,14 +28,15 @@ type PlayerEntity struct {
 type CursorComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	xy vector2.Int `ecs:"a, dto" gog:"new"`
+	xy    vector2.Int          `ecs:"a, dto" gog:"new"`
+	world ecs.Ref[WorldEntity] `ecs:"a, reference" gog:"new"`
 }
 
 type CursorEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
 	ecs.Archetype
 
-	Cursor *CursorComponent `gog:"new: xy"`
+	Cursor *CursorComponent `gog:"new"`
 }
 
 type ScreenLayoutComponent struct {
