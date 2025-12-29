@@ -47,8 +47,8 @@ type ScreenLayoutComponent struct {
 type ScreenViewComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	background      ecs.Ref[gfx.DrawEntity] `ecs:"a"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
-	panelBackground ecs.Ref[gfx.DrawEntity] `ecs:"a"`
+	background      ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
+	panelBackground ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"`
 }
 
 type ScreenModelComponent struct {
@@ -64,11 +64,44 @@ type ScreenEntity struct {
 	ecs.Archetype
 
 	layout *ScreenLayoutComponent `gog:"new: '@'"`
-	View   *ScreenViewComponent   `gog:"new: { background: '@.DrawBackground' }"`
-	Model  *ScreenModelComponent  `gog:"new: 'world, player, cursor'"`
+	View   *ScreenViewComponent   `ecs:"virtual" gog:"new: {
+		background: '@.DrawBackground',
+		panelBackground: '@.DrawPanelBackground',
+	}"`
+	Model *ScreenModelComponent `gog:"new: 'world, player, cursor_xy'"`
 }
 
 func (s ScreenEntity) DrawBackground() {
+
+}
+
+func (s ScreenEntity) DrawPanelBackground() {
+
+}
+
+type SubScreenViewComponent struct {
+	ecs.MetaTag `ecs:"component"`
+	ScreenViewComponent
+
+	foreground      ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"`
+	panelForeground ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"`
+}
+
+type SubScreenEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ScreenEntity
+
+	View *SubScreenViewComponent `ecs:"virtual" gog:"new: {
+		foreground: '@.DrawForeground',
+		panelForeground: '@.DrawPanelForeground',
+	}"`
+}
+
+func (s SubScreenEntity) DrawForeground() {
+
+}
+
+func (s SubScreenEntity) DrawPanelForeground() {
 
 }
 
@@ -96,4 +129,18 @@ type ComplexScreenEntity struct {
 
 func (s ComplexScreenEntity) DrawBackground() {
 
+}
+
+type SystemScreenViewComponent struct {
+	ecs.MetaTag `ecs:"component"`
+
+	background      ecs.Ref[gfx.DrawEntity] `ecs:"a"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
+	panelBackground ecs.Ref[gfx.DrawEntity] `ecs:"a"`
+}
+
+type SystemScreenEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ecs.Archetype
+
+	View *SystemScreenViewComponent
 }
