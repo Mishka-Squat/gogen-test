@@ -47,7 +47,8 @@ type ScreenLayoutComponent struct {
 type ScreenViewComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	background ecs.Ref[gfx.DrawEntity] `ecs:"a"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
+	background      ecs.Ref[gfx.DrawEntity] `ecs:"a"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
+	panelBackground ecs.Ref[gfx.DrawEntity] `ecs:"a"`
 }
 
 type ScreenModelComponent struct {
