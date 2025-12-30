@@ -10,7 +10,8 @@ import (
 type WorldModelComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	Date string `ecs:"a, dto"`
+	Date     string                  `ecs:"a, dto"`
+	Colonies []ecs.Ref[ColonyEntity] `ecs:"a, dto"`
 }
 
 type WorldEntity struct {
@@ -23,6 +24,20 @@ type WorldEntity struct {
 type PlayerEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
 	ecs.Archetype
+}
+
+type ColonyModelComponent struct {
+	ecs.MetaTag `ecs:"component"`
+
+	Name   string                `ecs:"a, dto"`
+	Player ecs.Ref[PlayerEntity] `ecs:"a, dto, reference"`
+}
+
+type ColonyEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ecs.Archetype
+
+	Model *ColonyModelComponent
 }
 
 type CursorComponent struct {
@@ -68,7 +83,7 @@ type ScreenEntity struct {
 		background: '@.DrawBackground',
 		panelBackground: '@.DrawPanelBackground',
 	}"`
-	Model *ScreenModelComponent `gog:"new: 'world, player, cursor_xy'"`
+	Model *ScreenModelComponent `ecs:"virtual" gog:"new: 'world, player, cursor_xy'"`
 }
 
 func (s ScreenEntity) DrawBackground() {
@@ -143,4 +158,37 @@ type SystemScreenEntity struct {
 	ecs.Archetype
 
 	View *SystemScreenViewComponent
+}
+
+type ColonyScreenModelComponent struct {
+	ecs.MetaTag          `ecs:"component"`
+	ScreenModelComponent `gog:"new: 'world, colony.Get().PlayerRef(), cursor_xy'"`
+
+	Colony ecs.Ref[ColonyEntity] `ecs:"a, reference" gog:"new"`
+}
+
+type ColonyScreenEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ecs.Archetype
+
+	layout *ScreenLayoutComponent `gog:"new: '@'"`
+	View   *ScreenViewComponent   `ecs:"virtual" gog:"new: {
+		background: '@.DrawBackground',
+		panelBackground: '@.DrawPanelBackground',
+	}"`
+	Model *ColonyScreenModelComponent `gog:"new"` // TODO: FIX broken if "new: 'world, colony, cursor'"
+}
+
+type Colony2ScreenModelComponent struct {
+	ecs.MetaTag          `ecs:"component"`
+	ScreenModelComponent `gog:"new"`
+
+	Colony ecs.Ref[ColonyEntity] `ecs:"a, reference" gog:"new"`
+}
+
+type Colony2ScreenEntity struct {
+	ecs.MetaTag  `ecs:"archetype"`
+	ScreenEntity `ecs:"virtual" gog:"new: 'world, colony.Get().PlayerRef(), cursor_xy'"`
+
+	Model *Colony2ScreenModelComponent `ecs:"virtual" gog:"new: 'world, colony.Get().PlayerRef(), cursor_xy, colony'"`
 }

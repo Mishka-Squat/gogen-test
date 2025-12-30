@@ -13,11 +13,22 @@ type DrawComponent struct {
 	DrawCall DrawCallFn `gog:"new"`
 }
 
+type LayerComponent struct {
+	ecs.MetaTag `ecs:"component"`
+
+	Layer bool
+}
+
+func (l *LayerComponent) Prepare() {
+	l.Layer = true
+}
+
 type DrawEntity struct {
 	ecs.MetaTag `ecs:"archetype: { transient }"`
 	ecs.Archetype
 
-	Draw *DrawComponent `gog:"new: drawCall"`
+	Draw  *DrawComponent `gog:"new: drawCall"`
+	Layer *LayerComponent
 }
 
 type DoubleDrawEntity struct {
