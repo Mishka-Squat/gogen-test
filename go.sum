@@ -6,10 +6,16 @@ github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/igadmg/gamemath v0.0.0-20260101124751-168041cf6efc h1:kq+qCO1SX3zhH99YaWyITrG+vUPrs7UYbCf14P9UzIc=
 github.com/igadmg/gamemath v0.0.0-20260101124751-168041cf6efc/go.mod h1:zdDd+ZmkcYvJtuzu0/O8X6g1yueacYmtL9kAjnRA9oU=
+github.com/igadmg/gamemath v0.0.0-20260101133112-c4fa6ddd0497 h1:C6a0p9RPpXdwAOsd9D8sQVGG4xWv6KDx4I+7TeRjXQw=
+github.com/igadmg/gamemath v0.0.0-20260101133112-c4fa6ddd0497/go.mod h1:RKhQh0aR8SBtCJ1/7uz/+5hHTgaefcZjvc65dDvXf8k=
 github.com/igadmg/goecs v0.0.0-20260101125348-2233052f834e h1:ovXXD5BtlKCxDSJTa5eDbdZ1nT/yKRvkzrFgARoLFrQ=
 github.com/igadmg/goecs v0.0.0-20260101125348-2233052f834e/go.mod h1:ghCvxgGjXri7DdF7yQ3C5FYtmMMpGD32GWliORvoaXY=
+github.com/igadmg/goecs v0.0.0-20260101134531-6c2093dbbdd9 h1:vkXZ+vhqcvbsy/faDMFjW5WpE/bDBTbRcsfaiTG2QDM=
+github.com/igadmg/goecs v0.0.0-20260101134531-6c2093dbbdd9/go.mod h1:hYREOHXqpEcw+HJjbS2M9WIOEOA/oV0Uxqf8TUnFyVI=
 github.com/igadmg/goex v0.0.0-20260101132820-0d670092b5e1 h1:YoEJiIVlVF+AMR87aHQy5IKrPkamed1Zln5B1OOTL/g=
 github.com/igadmg/goex v0.0.0-20260101132820-0d670092b5e1/go.mod h1:Y/B3oeRdRu2ZhVegk7TVDG62/Ox8hQuYHozjxI0w9UE=
+github.com/igadmg/goex v0.0.0-20260101133116-420923949a14 h1:kecw51Pk+ID1ZSenabb9g0o9sQAhHTAwt3juBAo6M28=
+github.com/igadmg/goex v0.0.0-20260101133116-420923949a14/go.mod h1:Q/aP8qYRu38bW3+bZlQ8URUqMztRHCTvAfCKQ68FC5I=
 github.com/pmezard/go-difflib v1.0.0 h1:4DBwDE0NGyQoBHbLQYPwSUPoCMWR5BEzIk/f1lZbAQM=
 github.com/pmezard/go-difflib v1.0.0/go.mod h1:iKH77koFhYxTK1pcRnkKkqfTogsbg7gZNVY4sRDYZ/4=
 github.com/stretchr/testify v1.11.1 h1:7s2iGBzp5EwR7/aIZr8ao5+dra3wiQyKjjFuvgVKu7U=
