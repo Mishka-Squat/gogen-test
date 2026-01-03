@@ -3,8 +3,8 @@ module github.com/igadmg/gogen-test
 go 1.25
 
 require (
-	github.com/igadmg/gamemath v0.0.0-20260101133112-c4fa6ddd0497
-	github.com/igadmg/goecs v0.0.0-20260101134531-6c2093dbbdd9
+	github.com/igadmg/gamemath v0.0.0-20260102145644-a6870add6615
+	github.com/igadmg/goecs v0.0.0-20260102155152-e79ecf506d73
 )
 
 require (
