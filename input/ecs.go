@@ -1,0 +1,45 @@
+package input
+
+import (
+	ecs "github.com/igadmg/goecs"
+	rl "github.com/igadmg/raylib-go/raylib"
+)
+
+type KeySet []rl.KeyType
+type KeyChord [][]rl.KeyType // TODO: optimize that to C structure
+
+type OnPressFn = func(mask int)
+
+type KeyInputComponent struct {
+	ecs.MetaTag `ecs:"component"`
+
+	Key       KeySet
+	Chord     KeyChord
+	Delay     float32
+	Frequency float32
+	next_time float64
+
+	OnPress OnPressFn
+}
+
+type KeyInputEntity struct {
+	ecs.MetaTag `
+		ecs:"archetype: { transient }"
+		gog:"input: {
+			Input: {
+				Key: 'input.KeySet ${key}',
+				Chord: 'input.KeyChord ${chord}',
+				Delay: '${delay}',
+				Frequency: '${frequency}',
+				'func()': {
+					OnPress: 'func(_ int) { i_func() }'
+				},
+				'func(mask int)': {
+					OnPress: 'func(mask int) { i_func(mask) }'
+				}
+			}
+		}"`
+	ecs.Archetype
+
+	Input *KeyInputComponent
+}

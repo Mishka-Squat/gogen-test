@@ -74,6 +74,13 @@ type ScreenModelComponent struct {
 	Cursor ecs.Ref[CursorEntity] `ecs:"a" gog:"new"`
 }
 
+type ScreenInputComponent struct {
+	ecs.MetaTag `ecs:"component: { transient }"`
+	//input.InputSchemeComponent
+
+	//OnCursorPress input.OnPressFn
+}
+
 type ScreenEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
 	ecs.Archetype
@@ -91,6 +98,23 @@ func (s ScreenEntity) DrawBackground() {
 }
 
 func (s ScreenEntity) DrawPanelBackground() {
+
+}
+
+/*
+	gog:"input: {
+			click: {
+				desktop: {
+					KeyInputEntity: {
+						key: [ rl.KeyEscape ],
+					}
+				},
+				laptop: desktop,
+				default: desktop
+			}
+		}"
+*/
+func (s ScreenEntity) InputClick() {
 
 }
 
