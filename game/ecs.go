@@ -106,7 +106,7 @@ func (s ScreenEntity) DrawPanelBackground() {
 			click: {
 				desktop: {
 					KeyInputEntity: {
-						key: [ rl.KeyEscape ],
+						key: [ rl.Keyboard_KeyEscape ],
 					}
 				},
 				laptop: desktop,
