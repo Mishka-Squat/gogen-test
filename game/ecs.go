@@ -4,6 +4,7 @@ import (
 	"github.com/igadmg/gamemath/vector2"
 	ecs "github.com/igadmg/goecs"
 	"github.com/igadmg/gogen-test/gfx"
+	"github.com/igadmg/gogen-test/input"
 	"github.com/igadmg/gogen-test/ui"
 )
 
@@ -30,14 +31,14 @@ type ColonyModelComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
 	Name   string                `ecs:"a, dto"`
-	Player ecs.Ref[PlayerEntity] `ecs:"a, dto, reference"`
+	Player ecs.Ref[PlayerEntity] `ecs:"a, dto, reference" gog:"new"`
 }
 
 type ColonyEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
 	ecs.Archetype
 
-	Model *ColonyModelComponent
+	Model *ColonyModelComponent `gog:"new"`
 }
 
 type CursorComponent struct {
@@ -62,8 +63,9 @@ type ScreenLayoutComponent struct {
 type ScreenViewComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	background      ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
-	panelBackground ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"`
+	background       ecs.Ref[gfx.DrawEntity]     `ecs:"a" gog:"new"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
+	panelBackground  ecs.Ref[gfx.DrawEntity]     `ecs:"a" gog:"new"`
+	loadingIndicator ecs.Ref[gfx.AnimatedSprite] `ecs:"a"`
 }
 
 type ScreenModelComponent struct {
@@ -71,14 +73,14 @@ type ScreenModelComponent struct {
 
 	world  ecs.Ref[WorldEntity]  `ecs:"a, reference" gog:"new"` // reference components should not be created by default, but also not recreated as transient refs
 	Player ecs.Ref[PlayerEntity] `ecs:"a, reference" gog:"new"`
-	Cursor ecs.Ref[CursorEntity] `ecs:"a" gog:"new"`
+	Cursor ecs.Ref[CursorEntity] `ecs:"a" gog:"new: 'cursor_xy, world'"`
 }
 
 type ScreenInputComponent struct {
 	ecs.MetaTag `ecs:"component: { transient }"`
-	//input.InputSchemeComponent
+	input.InputSchemeComponent
 
-	//OnCursorPress input.OnPressFn
+	OnCursorPress func()
 }
 
 type ScreenEntity struct {
@@ -91,6 +93,7 @@ type ScreenEntity struct {
 		panelBackground: '@.DrawPanelBackground',
 	}"`
 	Model *ScreenModelComponent `ecs:"virtual" gog:"new: 'world, player, cursor_xy'"`
+	Input *ScreenInputComponent `gog:""`
 }
 
 func (s ScreenEntity) DrawBackground() {
@@ -152,10 +155,10 @@ type ComplexScreenLayoutComponent struct {
 type ComplexScreenViewModelComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	background ecs.Ref[gfx.DrawEntity] `ecs:"a"`                      // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
+	background ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"`            // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
 	world      ecs.Ref[WorldEntity]    `ecs:"a, reference" gog:"new"` // reference components should not be created by default, but also not recreated as transient refs
 	Player     ecs.Ref[PlayerEntity]   `ecs:"a, reference" gog:"new"`
-	Cursor     ecs.Ref[CursorEntity]   `ecs:"a" gog:"new"`
+	Cursor     ecs.Ref[CursorEntity]   `ecs:"a" gog:"new: cursor_xy"`
 }
 
 type ComplexScreenEntity struct {
@@ -163,7 +166,10 @@ type ComplexScreenEntity struct {
 	ecs.Archetype
 
 	layout    *ComplexScreenLayoutComponent    `gog:"new: '@'"`
-	ViewModel *ComplexScreenViewModelComponent `gog:"new: { background: '@.DrawBackground', world, player, cursor }"`
+	ViewModel *ComplexScreenViewModelComponent `gog:"new: {
+		background: '@.DrawBackground',
+		world, player, cursor_xy,
+	}"`
 }
 
 func (s ComplexScreenEntity) DrawBackground() {

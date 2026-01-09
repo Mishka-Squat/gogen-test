@@ -1,9 +1,32 @@
 package input
 
 import (
+	"github.com/igadmg/gamemath/rect2"
 	ecs "github.com/igadmg/goecs"
 	rl "github.com/igadmg/raylib-go/raylib"
 )
+
+type InputScheme interface {
+	ecs.IsDeferable
+
+	Init()
+	Prepare()
+	Layout(rect rect2.Float32)
+	Rebuild()
+}
+
+type InputSchemeComponent struct {
+	ecs.MetaTag `ecs:"component: { input }"`
+
+	input InputScheme `gog:""`
+}
+
+func (o *InputSchemeComponent) Defer() {
+	if o.input != nil {
+		o.input.Defer()
+		o.input = nil
+	}
+}
 
 type KeySet []rl.KeyType
 type KeyChord [][]rl.KeyType // TODO: optimize that to C structure
