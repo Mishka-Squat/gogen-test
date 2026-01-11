@@ -41,6 +41,7 @@ type DoubleDrawEntity struct {
 type AnimatedSprite struct {
 	ecs.MetaTag `ecs:"archetype"`
 	DrawEntity  `gog:"new: '@.Draw', prepare: 'Named(LayerUI)'"`
+	Bound       BoundComponent `gog:"new"`
 }
 
 func (s AnimatedSprite) Draw() {

@@ -74,5 +74,6 @@ type NewEcsEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
 	ecs.Archetype
 
-	Component1 *NewEcsRefsNamedOverlapComponent `gog:"new"`
+	Component1 *NewInheritedComponentBase1 `gog:"new"`
+	Component2 *NewInheritedComponentBase2 `gog:"new"`
 }
