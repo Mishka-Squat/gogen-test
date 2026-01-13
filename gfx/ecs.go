@@ -48,6 +48,17 @@ func (s AnimatedSprite) Draw() {
 
 }
 
+type AnimatedSpriteStrange struct {
+	ecs.MetaTag `ecs:"archetype"`
+	DrawEntity  `gog:"new: '@.Draw', prepare: 'Named(LayerUI)'"`
+	DrawCall    DrawComponent  `gog:"new"`
+	Bound       BoundComponent `gog:"new"`
+}
+
+func (s AnimatedSpriteStrange) Draw() {
+
+}
+
 type BoundComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
