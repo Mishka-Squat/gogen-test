@@ -1,5 +1,7 @@
 package lazy
 
+import "github.com/elliotchance/orderedmap/v4"
+
 type StructWithLazy struct {
 	//lazy_data_StructWithLazy
 }
@@ -20,14 +22,6 @@ func (s StructWithLazy) lazy_StringList() []string {
 	}
 }
 
-func (s *StructWithLazy) lazy_PtrStringList() []string {
-	return []string{
-		"Hello",
-		"World",
-		"!",
-	}
-}
-
 func (s StructWithLazy) lazy_StringMap() map[string]string {
 	return map[string]string{
 		"a": "Hello",
@@ -36,12 +30,8 @@ func (s StructWithLazy) lazy_StringMap() map[string]string {
 	}
 }
 
-func (s *StructWithLazy) lazy_PtrStringMap() map[string]string {
-	return map[string]string{
-		"a": "Hello",
-		"b": "World",
-		"c": "!",
-	}
+func (s *StructWithLazy) lazy_StringOrderedMap() orderedmap.Of[*int, []*float64] {
+	return orderedmap.Make[*int, []*float64]()
 }
 
 // lazy:"set"
