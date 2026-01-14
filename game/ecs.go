@@ -65,7 +65,7 @@ type ScreenViewComponent struct {
 
 	background       ecs.Ref[gfx.DrawEntity]     `ecs:"a" gog:"new"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
 	panelBackground  ecs.Ref[gfx.DrawEntity]     `ecs:"a" gog:"new"`
-	loadingIndicator ecs.Ref[gfx.AnimatedSprite] `ecs:"a"`
+	loadingIndicator ecs.Ref[gfx.AnimatedSprite] `ecs:"a" gog:"new"`
 }
 
 type ScreenModelComponent struct {
@@ -91,6 +91,7 @@ type ScreenEntity struct {
 	View   *ScreenViewComponent   `ecs:"virtual" gog:"new: {
 		background: '@.DrawBackground',
 		panelBackground: '@.DrawPanelBackground',
+		loadingIndicator: 'bound',
 	}"`
 	Model *ScreenModelComponent `ecs:"virtual" gog:"new: 'world, player, cursor_xy'"`
 	Input *ScreenInputComponent `gog:""`
@@ -158,7 +159,7 @@ type ComplexScreenViewModelComponent struct {
 	background ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"`            // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
 	world      ecs.Ref[WorldEntity]    `ecs:"a, reference" gog:"new"` // reference components should not be created by default, but also not recreated as transient refs
 	Player     ecs.Ref[PlayerEntity]   `ecs:"a, reference" gog:"new"`
-	Cursor     ecs.Ref[CursorEntity]   `ecs:"a" gog:"new: cursor_xy"`
+	Cursor     ecs.Ref[CursorEntity]   `ecs:"a" gog:"new: 'cursor_xy, world'"`
 }
 
 type ComplexScreenEntity struct {
@@ -168,7 +169,6 @@ type ComplexScreenEntity struct {
 	layout    *ComplexScreenLayoutComponent    `gog:"new: '@'"`
 	ViewModel *ComplexScreenViewModelComponent `gog:"new: {
 		background: '@.DrawBackground',
-		world, player, cursor_xy,
 	}"`
 }
 
@@ -205,6 +205,7 @@ type ColonyScreenEntity struct {
 	View   *ScreenViewComponent   `ecs:"virtual" gog:"new: {
 		background: '@.DrawBackground',
 		panelBackground: '@.DrawPanelBackground',
+		loadingIndicator: 'bound',
 	}"`
 	Model *ColonyScreenModelComponent `gog:"new"` // TODO: FIX broken if "new: 'world, colony, cursor'"
 }
@@ -218,7 +219,7 @@ type Colony2ScreenModelComponent struct {
 
 type Colony2ScreenEntity struct {
 	ecs.MetaTag  `ecs:"archetype"`
-	ScreenEntity `ecs:"virtual" gog:"new: 'world, colony.Get().PlayerRef(), cursor_xy'"`
+	ScreenEntity `gog:"new: 'bound, world, colony.Get().PlayerRef(), cursor_xy'"`
 
 	Model *Colony2ScreenModelComponent `ecs:"virtual" gog:"new: 'world, colony.Get().PlayerRef(), cursor_xy, colony'"`
 }
