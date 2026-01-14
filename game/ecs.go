@@ -8,6 +8,10 @@ import (
 	"github.com/igadmg/gogen-test/ui"
 )
 
+type SaveTag struct {
+	ecs.MetaTag `ecs:"component"`
+}
+
 type WorldModelComponent struct {
 	ecs.MetaTag `ecs:"component"`
 

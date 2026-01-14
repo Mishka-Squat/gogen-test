@@ -13,14 +13,19 @@ type DrawComponent struct {
 	DrawCall DrawCallFn `gog:"new"`
 }
 
+type Layer struct {
+	buffer int
+	output int
+}
+
 type LayerComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	Layer bool
+	*Layer
 }
 
 func (l *LayerComponent) Prepare() {
-	l.Layer = true
+	l.Layer = nil
 }
 
 type DrawEntity struct {
