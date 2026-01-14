@@ -320,9 +320,9 @@ type TestMapScreenModel struct {
 type TestMapScreenView struct {
 	ecs.MetaTag `ecs:"component"`
 
+	background ecs.Ref[gfx.DrawEntity]            `ecs:"a" gog:"new"`
 	mapView    ecs.Ref[TestMapViewEntity]         `ecs:"a" gog:"new: 'world, player, cursor'"`
 	infoView   ecs.Ref[BaseTestMapInfoViewEntity] `ecs:"a" gog:"new: 'world, player, cursor'"`
-	background ecs.Ref[gfx.DrawEntity]            `ecs:"a" gog:"new"`
 }
 
 type TestMapViewEntity struct {
