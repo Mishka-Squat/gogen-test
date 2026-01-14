@@ -6,6 +6,11 @@ import (
 	"github.com/igadmg/gogen-test/input"
 )
 
+type SystemViewI interface {
+	DrawMenu()
+	DrawOverlay()
+}
+
 type SystemEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
 	ecs.Archetype
@@ -14,8 +19,18 @@ type SystemEntity struct {
 	Input *SystemInputComponent `ecs:"virtual"`
 }
 
+func (e SystemEntity) DrawMenu() {
+
+}
+
+func (e SystemEntity) DrawOverlay() {
+
+}
+
 type SystemViewComponent struct {
 	ecs.MetaTag `ecs:"component"`
+
+	SystemViewI `ecs:"self"`
 
 	MenuView    ecs.Ref[gfx.DrawEntity]
 	OverlayView ecs.Ref[gfx.DrawEntity]

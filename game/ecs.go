@@ -59,6 +59,63 @@ type CursorEntity struct {
 	Cursor *CursorComponent `gog:"new"`
 }
 
+type ControlLayoutComponent struct {
+	ecs.MetaTag        `ecs:"component: { transient }"`
+	ui.LayoutComponent `gog:"new"`
+}
+
+type ControlViewComponent struct {
+	ecs.MetaTag `ecs:"component"`
+
+	background      ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
+	panelBackground ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"`
+}
+
+type ControlModelComponent struct {
+	ecs.MetaTag `ecs:"component"`
+
+	world  ecs.Ref[WorldEntity]  `ecs:"a, reference" gog:"new"` // reference components should not be created by default, but also not recreated as transient refs
+	Player ecs.Ref[PlayerEntity] `ecs:"a, reference" gog:"new"`
+	Cursor ecs.Ref[CursorEntity] `ecs:"a" gog:"new: 'cursor_xy, world'"`
+}
+
+type ControlInputComponent struct {
+	ecs.MetaTag `ecs:"component: { transient }"`
+	input.InputSchemeComponent
+
+	OnCursorPress func()
+}
+
+type ControlEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ecs.Archetype
+
+	layout *ControlLayoutComponent `gog:"new: '@'"`
+	View   *ControlViewComponent   `ecs:"virtual" gog:"new: {
+		background: '@.DrawBackground',
+		panelBackground: '@.DrawPanelBackground',
+	}"`
+	Model *ControlModelComponent `ecs:"virtual" gog:"new: 'world, player, cursor_xy'"`
+	Input *ControlInputComponent `gog:""`
+}
+
+/*
+	gog:"input: {
+			click: {
+				desktop: {
+					KeyInputEntity: {
+						key: [ rl.Keyboard_KeyEscape ],
+					}
+				},
+				laptop: desktop,
+				default: desktop
+			}
+		}"
+*/
+func (s ControlEntity) InputClick() {
+
+}
+
 type ScreenLayoutComponent struct {
 	ecs.MetaTag        `ecs:"component: { transient }"`
 	ui.LayoutComponent `gog:"new"`
@@ -70,6 +127,7 @@ type ScreenViewComponent struct {
 	background       ecs.Ref[gfx.DrawEntity]     `ecs:"a" gog:"new"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
 	panelBackground  ecs.Ref[gfx.DrawEntity]     `ecs:"a" gog:"new"`
 	loadingIndicator ecs.Ref[gfx.AnimatedSprite] `ecs:"a" gog:"new"`
+	control          ecs.Ref[ControlEntity]      ``
 }
 
 type ScreenModelComponent struct {
