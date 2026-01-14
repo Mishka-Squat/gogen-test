@@ -285,3 +285,124 @@ type Colony2ScreenEntity struct {
 
 	Model *Colony2ScreenModelComponent `ecs:"virtual" gog:"new: 'world, colony.Get().PlayerRef(), cursor_xy, colony'"`
 }
+
+type TestMapScreen struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ecs.Archetype
+
+	layout *TestMapScreenLayout `gog:"new: '@'"`
+	Input  *TestMapScreenInput  `gog:""`
+	Model  *TestMapScreenModel  `gog:"new: 'world, player'"`
+	View   *TestMapScreenView   `gog:"new: {
+		background: '@.DrawBackground',
+		world, player, '@.Cursor()'
+	}"`
+}
+
+type TestMapScreenLayout struct {
+	ecs.MetaTag        `ecs:"component: { transient }"`
+	ui.LayoutComponent `gog:"new"`
+}
+
+type TestMapScreenInput struct {
+	ecs.MetaTag `ecs:"component: { transient }"`
+	input.InputSchemeComponent
+}
+
+type TestMapScreenModel struct {
+	ecs.MetaTag `ecs:"component"`
+
+	world  ecs.Ref[WorldEntity]  `ecs:"a, reference" gog:"new"`
+	player ecs.Ref[PlayerEntity] `ecs:"a, reference" gog:"new"`
+	Cursor ecs.Ref[CursorEntity] `ecs:"a" gog:"new: [cursor_xy, world]"`
+}
+
+type TestMapScreenView struct {
+	ecs.MetaTag `ecs:"component"`
+
+	mapView    ecs.Ref[TestMapViewEntity]         `ecs:"a" gog:"new: 'world, player, cursor'"`
+	infoView   ecs.Ref[BaseTestMapInfoViewEntity] `ecs:"a" gog:"new: 'world, player, cursor'"`
+	background ecs.Ref[gfx.DrawEntity]            `ecs:"a" gog:"new"`
+}
+
+type TestMapViewEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+
+	BaseTestMapViewEntity `gog:"new"`
+
+	Model *TestMapModel `ecs:"virtual" gog:"new: 'world, player, cursor'"`
+	View  *TestMapView  `ecs:"virtual" gog:"new: {
+		layerFog: '@.DrawFogTiles',
+		layerUi: '@.DrawUiTiles',
+		layerOverlay: '@.DrawOverlayTiles',
+	}"`
+	Input *TestMapViewEntityInput `gog:""`
+}
+
+type TestMapView struct {
+	ecs.MetaTag `ecs:"component"`
+
+	BaseTestMapView
+	//layerUnits   ecs.Ref[gfx.DrawCallEntity]       `gog:"new"`
+	layerFog     ecs.Ref[gfx.DrawEntity] `gog:"new"`
+	layerUi      ecs.Ref[gfx.DrawEntity] `gog:"new"`
+	layerOverlay ecs.Ref[gfx.DrawEntity] `gog:"new"`
+}
+
+type TestMapModel struct {
+	ecs.MetaTag `ecs:"component"`
+
+	BaseTestMapModel `gog:"new: 'world, player'"`
+	Cursor           ecs.Ref[CursorEntity] `ecs:"a, reference" gog:"new"`
+}
+
+type TestMapViewEntityInput struct {
+	ecs.MetaTag `ecs:"component: { transient }"`
+	input.InputSchemeComponent
+}
+
+type BaseTestMapViewEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ecs.Archetype
+
+	Model *BaseTestMapModel `ecs:"abstract"`
+	View  *BaseTestMapView  `ecs:"abstract" gog:"new: {
+		layerTerrain: '@.DrawLayerTerrain',
+		layerGame: '@.DrawLayerGame',
+		layerDebug: '@.DrawLayerDebug'
+	}"`
+}
+
+type BaseTestMapView struct {
+	ecs.MetaTag `ecs:"component"`
+
+	layerTerrain ecs.Ref[gfx.DrawEntity] `gog:"new"`
+	layerGame    ecs.Ref[gfx.DrawEntity] `gog:"new"`
+	layerDebug   ecs.Ref[gfx.DrawEntity] `gog:"new"`
+}
+
+type BaseTestMapModel struct {
+	ecs.MetaTag `ecs:"component"`
+
+	World  ecs.Ref[WorldEntity]  `ecs:"a, reference" gog:"new"`
+	Player ecs.Ref[PlayerEntity] `ecs:"a, reference" gog:"new"`
+}
+
+type BaseTestMapInfoView struct {
+	ecs.MetaTag `ecs:"component"`
+
+	World  ecs.Ref[WorldEntity]  `ecs:"a, reference" gog:"new"`
+	Player ecs.Ref[PlayerEntity] `ecs:"a, reference" gog:"new"`
+	Cursor ecs.Ref[CursorEntity] `ecs:"a, reference" gog:"new"`
+
+	//input InputScheme `gog:""`
+	//click *BoundedInputComponent
+}
+
+type BaseTestMapInfoViewEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	//gfx.BoundDrawEntity `gog:"new: '@.DrawPanel', prepare: 'Named(LayerUI)'"`
+	gfx.DrawEntity `gog:"new: '@.DrawPanel', prepare: 'Named(LayerUI)'"`
+
+	View *BaseTestMapInfoView `gog:"new: 'world, player, cursor'"`
+}
