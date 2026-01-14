@@ -127,8 +127,8 @@ func (s ScreenEntity) InputClick() {
 }
 
 type SubScreenViewComponent struct {
-	ecs.MetaTag `ecs:"component"`
-	ScreenViewComponent
+	ecs.MetaTag         `ecs:"component"`
+	ScreenViewComponent `gog:"new"`
 
 	foreground      ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"`
 	panelForeground ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"`

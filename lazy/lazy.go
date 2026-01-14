@@ -48,3 +48,7 @@ func (s StructWithLazy) lazy_StringWithOverride() string {
 func (s StructWithLazy) lazy_StringWithSetAndOverride() string {
 	return "Hello World!"
 }
+
+func (s StructWithLazy) lazy_StringWithError() (string, error) {
+	return "Hello World!", nil
+}
