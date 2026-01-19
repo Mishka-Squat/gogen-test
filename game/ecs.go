@@ -67,7 +67,7 @@ type ControlLayoutComponent struct {
 type ControlViewComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	background      ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
+	background      ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new, prepare: 'Named(LayerBackground)'"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
 	panelBackground ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"`
 }
 
