@@ -401,8 +401,8 @@ type BaseTestMapInfoView struct {
 
 type BaseTestMapInfoViewEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
-	//gfx.BoundDrawEntity `gog:"new: '@.DrawPanel', prepare: 'Named(LayerUI)'"`
-	gfx.DrawEntity `gog:"new: '@.DrawPanel', prepare: 'Named(LayerUI)'"`
+	//gfx.BoundDrawEntity `gog:"new: '@.DrawPanel', prepare: { Layer: 'Named(LayerUI)' }"`
+	gfx.DrawEntity `gog:"new: '@.DrawPanel', prepare: { Layer: 'Named(LayerUI)' }"`
 
 	View *BaseTestMapInfoView `gog:"new: 'world, player, cursor'"`
 }
