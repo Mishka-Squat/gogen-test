@@ -18,6 +18,9 @@ type Layer struct {
 	output int
 }
 
+func (l *Layer) Defer() {
+}
+
 type LayerComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
@@ -25,6 +28,10 @@ type LayerComponent struct {
 }
 
 func (l *LayerComponent) Prepare() {
+	l.Layer = nil
+}
+
+func (l *LayerComponent) DeferPersistent() {
 	l.Layer = nil
 }
 

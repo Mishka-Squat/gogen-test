@@ -31,6 +31,36 @@ type PlayerEntity struct {
 	ecs.Archetype
 }
 
+type TestNationModelComponent struct {
+	ecs.MetaTag `ecs:"component"`
+
+	Id   int    `ecs:"a: NationId, dto"`
+	Name string `ecs:"a, dto"`
+}
+
+type TestNationEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ecs.Archetype
+	SaveTag
+
+	Model *TestNationModelComponent `ecs:"save, virtual"`
+}
+
+type TestPlayerNationModelComponent struct {
+	ecs.MetaTag `ecs:"component"`
+
+	TestNationModelComponent
+	TaxRate uint8  `ecs:"a, dto"`
+	Gold    uint32 `ecs:"a, dto"`
+}
+
+type TestPlayerNationEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	TestNationEntity
+
+	Model *TestPlayerNationModelComponent `ecs:"save"`
+}
+
 type ColonyModelComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
