@@ -31,6 +31,17 @@ type PlayerEntity struct {
 	ecs.Archetype
 }
 
+type TestEmptyModelComponent struct {
+	ecs.MetaTag `ecs:"component"`
+}
+
+type TestEmptyModelEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ecs.Archetype
+
+	Model *TestEmptyModelComponent `ecs:"save, virtual"`
+}
+
 type TestNationModelComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
