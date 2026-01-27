@@ -279,18 +279,33 @@ func (s ComplexScreenEntity) DrawBackground() {
 
 }
 
+type SystemControlEntity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ecs.Archetype
+
+	layout *ControlLayoutComponent `gog:"new: '@'"`
+	View   *ControlViewComponent   `ecs:"virtual" gog:"new: {
+		background: '@.DrawBackground',
+		panelBackground: '@.DrawPanelBackground',
+	}"`
+	Input *ControlInputComponent `gog:""`
+}
+
 type SystemScreenViewComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	background      ecs.Ref[gfx.DrawEntity] `ecs:"a"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
-	panelBackground ecs.Ref[gfx.DrawEntity] `ecs:"a"`
+	background      ecs.Ref[gfx.DrawEntity]      `ecs:"a" gog:"new"` // background is transient ref here, because DrawEntity s transient, should be created automaticaly on create transient step
+	panelBackground ecs.Ref[gfx.DrawEntity]      `ecs:"a"`
+	control         ecs.Ref[SystemControlEntity] `ecs:"a" gog:"new"`
 }
 
 type SystemScreenEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
 	ecs.Archetype
 
-	View *SystemScreenViewComponent
+	View *SystemScreenViewComponent `ecs:"virtual" gog:"new: {
+		background: '@.DrawBackground',
+	}"`
 }
 
 type ColonyScreenModelComponent struct {
