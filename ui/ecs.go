@@ -5,7 +5,6 @@ import ecs "github.com/igadmg/goecs"
 type Context any
 
 type LayoutComponentI interface {
-	PrepareLayout() bool
 	Layout(_lay *Context)
 }
 
