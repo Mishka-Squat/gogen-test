@@ -9,9 +9,10 @@ import (
 type NewSimpleComponent struct {
 	ecs.MetaTag `ecs:"component"`
 
-	Foo int     `gog:"new"`
-	Bar float32 `gog:"new"`
-	Baz float32 `gog:"new"`
+	Foo    int     `ecs:"a" gog:"new"`
+	Bar    float32 `ecs:"a" gog:"new"`
+	Baz    float32 `ecs:"a" gog:"new"`
+	callFn func()  `ecs:"a" gog:"new"`
 }
 
 type NewSimpleNamedComponent struct {
