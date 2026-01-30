@@ -462,3 +462,79 @@ type BaseTestMapInfoViewEntity struct {
 
 	View *BaseTestMapInfoView `gog:"new: 'world, player, cursor'"`
 }
+
+type TestMessageBoxModel struct {
+	ecs.MetaTag `ecs:"component"`
+
+	resultFn func(int) `ecs:"a" gog:"new"`
+}
+
+type TestMessageBoxViewI interface {
+}
+
+type TestMessageBoxView struct {
+	ecs.MetaTag `ecs:"component"`
+
+	ui.Context
+	Content TestMessageBoxViewI     `ecs:"a" gog:"new"`
+	panel   ecs.Ref[gfx.DrawEntity] `ecs:"a" gog:"new"`
+}
+
+type TestMessageBox struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ecs.Archetype
+
+	Model *TestMessageBoxModel `ecs:"virtual" gog:"new"`
+	View  *TestMessageBoxView  `ecs:"abstract" gog:"new: {
+		panel: '@.Draw',
+	}"`
+	Input *TestMessageBoxInput `ecs:"virtual" gog:""`
+}
+
+type TestMessageBoxInput struct {
+	ecs.MetaTag `ecs:"component: { transient }"`
+	input.InputSchemeComponent
+}
+
+/*
+	gog:"input: {
+			confirm: {
+				desktop: {
+					KeyInputEntity: {
+						key: [ rl.Keyboard_KeyEnter ],
+					}
+				},
+				laptop: desktop,
+				default: desktop
+			}
+		}"
+*/
+func (s TestMessageBox) InputConfirm() {
+}
+
+type TestMessageBoxWithChoiceModel struct {
+	ecs.MetaTag `ecs:"component"`
+
+	TestMessageBoxModel
+}
+
+type TestMessageBoxWithChoiceView struct {
+	ecs.MetaTag `ecs:"component"`
+
+	TestMessageBoxView
+	menu ecs.Ref[PlayerEntity] `ecs:"a" gog:"new"`
+}
+
+type TestMessageBoxWithChoice struct {
+	ecs.MetaTag `ecs:"archetype"`
+	TestMessageBox
+
+	Model *TestMessageBoxWithChoiceModel `ecs:"virtual" gog:"new"`
+	View  *TestMessageBoxWithChoiceView  `ecs:"virtual" gog:"new: '@'"`
+	Input *TestMessageBoxWithChoiceInput `ecs:"virtual" gog:""`
+}
+
+type TestMessageBoxWithChoiceInput struct {
+	ecs.MetaTag `ecs:"component: { transient }"`
+	TestMessageBoxInput
+}

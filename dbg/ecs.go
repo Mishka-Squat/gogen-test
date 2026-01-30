@@ -37,7 +37,7 @@ type SystemViewComponent struct {
 }
 
 type SystemInputComponent struct {
-	ecs.MetaTag `ecs:"component"`
+	ecs.MetaTag `ecs:"component: { transient }"`
 	input.InputSchemeComponent
 }
 
@@ -45,7 +45,8 @@ type DbgSystemEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
 	SystemEntity
 
-	View *DbgSystemViewComponent
+	View  *DbgSystemViewComponent
+	Input *DbgSystemInputComponent
 }
 
 type DbgSystemViewComponent struct {
@@ -56,4 +57,9 @@ type DbgSystemViewComponent struct {
 	LoadSavFn func(path string) error
 	LoadFn    func(path string) error
 	SaveFn    func(path string) error
+}
+
+type DbgSystemInputComponent struct {
+	ecs.MetaTag `ecs:"component: { transient }"`
+	SystemInputComponent
 }

@@ -15,6 +15,13 @@ type InputScheme interface {
 	Rebuild()
 }
 
+type InputSchemeQuery struct {
+	ecs.MetaTag `ecs:"query"`
+	ecs.Query
+
+	InputScheme *InputSchemeComponent
+}
+
 type InputSchemeComponent struct {
 	ecs.MetaTag `ecs:"component: { input }"`
 
