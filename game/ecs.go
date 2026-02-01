@@ -325,7 +325,7 @@ type ColonyScreenEntity struct {
 		panelBackground: '@.DrawPanelBackground',
 		loadingIndicator: 'bound',
 	}"`
-	Model *ColonyScreenModelComponent `gog:"new"` // TODO: FIX broken if "new: 'world, colony, cursor'"
+	Model *ColonyScreenModelComponent `gog:"new"` // TODO(iga) FIX: broken if "new: 'world, colony, cursor'"
 }
 
 type Colony2ScreenModelComponent struct {

@@ -36,7 +36,7 @@ func (o *InputSchemeComponent) Defer() {
 }
 
 type KeySet []rl.KeyType
-type KeyChord [][]rl.KeyType // TODO: optimize that to C structure
+type KeyChord [][]rl.KeyType // TODO(iga): optimize that to C structure
 
 type OnPressFn = func(mask int)
 
