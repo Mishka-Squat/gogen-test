@@ -6,6 +6,7 @@ import (
 	"github.com/igadmg/gogen-test/gfx"
 	"github.com/igadmg/gogen-test/input"
 	"github.com/igadmg/gogen-test/ui"
+	rl "github.com/igadmg/raylib-go/raylib"
 )
 
 type SaveTag struct {
@@ -140,12 +141,16 @@ type ControlEntity struct {
 	Input *ControlInputComponent `gog:""`
 }
 
+func (s ControlEntity) InputClickKey() rl.UnifiedKeyType {
+	return rl.Keyboard_KeyEscape
+}
+
 /*
 	gog:"input: {
 			click: {
 				desktop: {
 					KeyInputEntity: {
-						key: [ rl.Keyboard_KeyEscape ],
+						keyfn: 's.InputClickKey()',
 					}
 				},
 				laptop: desktop,

@@ -57,7 +57,10 @@ type KeyInputEntity struct {
 		ecs:"archetype: { transient }"
 		gog:"input: {
 			Input: {
-				Key: 'input.KeySet${key}',
+				Key: [
+					'input.KeySet${key}',
+					'${keyfn}',
+				],
 				Chord: 'input.KeyChord${chord}',
 				Delay: '${delay}',
 				Frequency: '${frequency}',
