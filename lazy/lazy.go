@@ -1,6 +1,6 @@
 package lazy
 
-import "github.com/elliotchance/orderedmap/v4"
+import "github.com/igadmg/orderedmap/v4"
 
 type StructWithLazy struct {
 	//lazy_data_StructWithLazy
