@@ -1,12 +1,12 @@
 package game
 
 import (
-	"github.com/igadmg/gamemath/vector2"
-	ecs "github.com/igadmg/goecs"
-	"github.com/igadmg/gogen-test/gfx"
-	"github.com/igadmg/gogen-test/input"
-	"github.com/igadmg/gogen-test/ui"
-	rl "github.com/igadmg/raylib-go/raylib"
+	"github.com/Mishka-Squat/gamemath/vector2"
+	ecs "github.com/Mishka-Squat/goecs"
+	"github.com/Mishka-Squat/gogen-test/gfx"
+	"github.com/Mishka-Squat/gogen-test/input"
+	"github.com/Mishka-Squat/gogen-test/ui"
+	rl "github.com/Mishka-Squat/raylib-go/raylib"
 )
 
 type SaveTag struct {

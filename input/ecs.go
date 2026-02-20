@@ -1,9 +1,9 @@
 package input
 
 import (
-	"github.com/igadmg/gamemath/rect2"
-	ecs "github.com/igadmg/goecs"
-	rl "github.com/igadmg/raylib-go/raylib"
+	"github.com/Mishka-Squat/gamemath/rect2"
+	ecs "github.com/Mishka-Squat/goecs"
+	rl "github.com/Mishka-Squat/raylib-go/raylib"
 )
 
 type InputScheme interface {

@@ -1,9 +1,9 @@
 package np
 
 import (
-	ecs "github.com/igadmg/goecs"
-	"github.com/igadmg/gogen-test/game"
-	"github.com/igadmg/gogen-test/gfx"
+	ecs "github.com/Mishka-Squat/goecs"
+	"github.com/Mishka-Squat/gogen-test/game"
+	"github.com/Mishka-Squat/gogen-test/gfx"
 )
 
 type NewSimpleComponent struct {

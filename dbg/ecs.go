@@ -1,9 +1,9 @@
 package dbg
 
 import (
-	ecs "github.com/igadmg/goecs"
-	"github.com/igadmg/gogen-test/gfx"
-	"github.com/igadmg/gogen-test/input"
+	ecs "github.com/Mishka-Squat/goecs"
+	"github.com/Mishka-Squat/gogen-test/gfx"
+	"github.com/Mishka-Squat/gogen-test/input"
 )
 
 type SystemViewI interface {

@@ -1,6 +1,6 @@
 package ui
 
-import ecs "github.com/igadmg/goecs"
+import ecs "github.com/Mishka-Squat/goecs"
 
 type Context any
 

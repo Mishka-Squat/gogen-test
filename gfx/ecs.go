@@ -1,8 +1,8 @@
 package gfx
 
 import (
-	"github.com/igadmg/gamemath/rect2"
-	ecs "github.com/igadmg/goecs"
+	"github.com/Mishka-Squat/gamemath/rect2"
+	ecs "github.com/Mishka-Squat/goecs"
 )
 
 type DrawCallFn func(source rect2.Float32)

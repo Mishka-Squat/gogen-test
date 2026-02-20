@@ -1,6 +1,6 @@
 package uix
 
-import ecs "github.com/igadmg/goecs"
+import ecs "github.com/Mishka-Squat/goecs"
 
 type Component1_1_1 struct {
 	ecs.MetaTag `ecs:"component"`
