@@ -4,7 +4,37 @@ import (
 	ecs "github.com/Mishka-Squat/goecs"
 	"github.com/Mishka-Squat/gogen-test/gfx"
 	"github.com/Mishka-Squat/gogen-test/input"
+	"github.com/Mishka-Squat/gogen-test/ui"
 )
+
+type TestOverlayViewComponent struct {
+	ecs.MetaTag `ecs:"component"`
+
+	layer gfx.LayerId `gog:"new"`
+}
+
+type TestOverlayLayout struct {
+	ecs.MetaTag        `ecs:"component: { transient }"`
+	ui.LayoutComponent `gog:"new"`
+}
+
+type OverlayEntity struct {
+	ecs.MetaTag    `ecs:"archetype"`
+	gfx.DrawEntity `gog:"new: '@.Draw', prepare: { Layer: 'Named(@.view.layer)' }"`
+
+	layout *TestOverlayLayout        `gog:"new: '@'"`
+	view   *TestOverlayViewComponent `gog:"new"`
+}
+
+func (e OverlayEntity) PrepareLayout() *ui.Context {
+	return &e.layout.Context
+}
+
+func (e OverlayEntity) Layout(_lay *ui.Context) {
+}
+
+func (e OverlayEntity) Draw(layer *gfx.Layer) {
+}
 
 type SystemViewI interface {
 	DrawMenu()

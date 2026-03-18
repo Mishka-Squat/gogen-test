@@ -5,6 +5,7 @@ import (
 	ecs "github.com/Mishka-Squat/goecs"
 )
 
+type LayerId int
 type DrawCallFn func(source rect2.Float32)
 
 type DrawComponent struct {
