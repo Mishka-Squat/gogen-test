@@ -3,9 +3,9 @@ module github.com/Mishka-Squat/gogen-test
 go 1.26
 
 require (
-	github.com/Mishka-Squat/gamemath v0.0.0-20260410153339-fe866f803731
-	github.com/Mishka-Squat/goecs v0.0.0-20260410153339-c51f570729e1
-	github.com/Mishka-Squat/orderedmap/v4 v4.0.0-20260314181207-89c38633a7ef
+	github.com/Mishka-Squat/gamemath v0.0.0-20260416222311-4df43ca72563
+	github.com/Mishka-Squat/goecs v0.1.0
+	github.com/Mishka-Squat/orderedmap/v4 v4.0.0-20260416222310-40c6a92651c6
 	github.com/Mishka-Squat/raylib-go/raylib v0.0.0-20260220111826-0920877398a5
 )
 
