@@ -386,6 +386,22 @@ type TestMapScreenView struct {
 	infoView   ecs.Ref[BaseTestMapInfoViewEntity] `ecs:"a" gog:"new: 'world, player, cursor'"`
 }
 
+func (s TestMapScreen) rpc_CallVoid() {
+
+}
+
+func (s TestMapScreen) rpc_CallOneParam(a int) {
+
+}
+
+func (s TestMapScreen) rpc_CallTwoParam(a int, b string) {
+
+}
+
+func (s TestMapScreen) rpc_CallTwoParamOneReturn(a int, b string) string {
+	return "Hello"
+}
+
 type TestMapViewEntity struct {
 	ecs.MetaTag `ecs:"archetype"`
 
