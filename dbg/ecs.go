@@ -30,7 +30,7 @@ func (e OverlayEntity) PrepareLayout() *ui.Context {
 	return &e.layout.Context
 }
 
-func (e OverlayEntity) Layout(_lay *ui.Context) {
+func (e OverlayEntity) Layout(_ui *ui.Context) {
 }
 
 func (e OverlayEntity) Draw(layer *gfx.Layer) {

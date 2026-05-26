@@ -5,7 +5,7 @@ import ecs "github.com/Mishka-Squat/goecs"
 type Context any
 
 type LayoutComponentI interface {
-	Layout(_lay *Context)
+	Layout(_ui *Context)
 }
 
 type LayoutComponent struct {
