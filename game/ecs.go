@@ -559,3 +559,31 @@ type TestMessageBoxWithChoiceInput struct {
 	ecs.MetaTag `ecs:"component: { transient }"`
 	TestMessageBoxInput
 }
+
+type TestOptional1Entity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ecs.Archetype
+
+	Required *gfx.BoundComponent
+	Draw     *gfx.DrawComponent    `ecs:"optional"`
+	Colony   *ColonyModelComponent `ecs:"optional: one"`
+}
+
+type TestOptional2Entity struct {
+	ecs.MetaTag `ecs:"archetype"`
+	ecs.Archetype
+
+	Required *gfx.BoundComponent
+	//Draw *gfx.DrawComponent    `ecs:"optional"`
+	World *WorldModelComponent `ecs:"optional: one"`
+}
+
+type TestOptionalQuery struct {
+	ecs.MetaTag `ecs:"query"`
+	ecs.Query
+
+	Required  *gfx.BoundComponent
+	OptionAny *gfx.DrawComponent    `ecs:"optional"`
+	Option1   *ColonyModelComponent `ecs:"optional: one"`
+	Option2   *WorldModelComponent  `ecs:"optional: one"`
+}
