@@ -565,8 +565,8 @@ type TestOptional1Entity struct {
 	ecs.Archetype
 
 	Required *gfx.BoundComponent
-	Draw     *gfx.DrawComponent    `ecs:"optional"`
-	Colony   *ColonyModelComponent `ecs:"optional: one"`
+	Draw     *gfx.DrawComponent
+	Colony   *ColonyModelComponent
 }
 
 type TestOptional2Entity struct {
@@ -574,8 +574,8 @@ type TestOptional2Entity struct {
 	ecs.Archetype
 
 	Required *gfx.BoundComponent
+	World    *WorldModelComponent
 	//Draw *gfx.DrawComponent    `ecs:"optional"`
-	World *WorldModelComponent `ecs:"optional: one"`
 }
 
 type TestOptionalQuery struct {
@@ -586,4 +586,12 @@ type TestOptionalQuery struct {
 	OptionAny *gfx.DrawComponent    `ecs:"optional"`
 	Option1   *ColonyModelComponent `ecs:"optional: one"`
 	Option2   *WorldModelComponent  `ecs:"optional: one"`
+}
+
+type TestOptional2EntityQuery struct {
+	ecs.MetaTag `ecs:"query"`
+	ecs.Query
+
+	Bound *gfx.BoundComponent `ecs:"optional"`
+	World *WorldModelComponent
 }
